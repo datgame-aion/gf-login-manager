@@ -1,0 +1,24 @@
+INSERT INTO cookies (
+        creation_utc,
+        host_key,
+        name,
+        value,
+        path,
+        expires_utc,
+        last_access_utc,
+        is_secure,
+        is_httponly,
+        firstpartyonly
+    )
+VALUES(
+        :creation_utc,
+        'www.gameforge.com',
+        'gf-token-production',
+        :value,
+        '/',
+        :expires_utc,
+        :last_access_utc,
+        0,
+        0,
+        1
+    );

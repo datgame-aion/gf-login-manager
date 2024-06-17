@@ -1,0 +1,26 @@
+[package]
+name = "gf-login-manager"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.80"
+directories = "5.0.1"
+log = "0.4.21"
+rusqlite = { version = "0.31.0", features = ["bundled"] }
+slint = {version = "1.6.0",default-features = false  , features = ["compat-1-2", "std",  "renderer-skia", "backend-winit"]}
+
+[build-dependencies]
+slint-build = "1.6.0"
+
+winres = "0.1.12"
+
+
+[profile.deploy]
+inherits = "release"
+strip = true  # Automatically strip symbols from the binary.
+lto = true
+codegen-units = 1
+panic = "abort"

@@ -1,0 +1,73 @@
+import { HorizontalBox, Button, GridBox, LineEdit, VerticalBox } from "std-widgets.slint";
+component LoginButtons {
+    callback clicked;
+    callback clicked_delete;
+    in property <string> name;
+    preferred-width: 100%;
+
+    HorizontalLayout {
+        spacing: 10px;
+
+        Button {
+            clicked => {clicked()}
+            horizontal-stretch: 1;
+            text: "Start <\{name}>";
+        }
+        Button {
+            clicked => {clicked_delete()}
+
+            text: "Delete";
+        }
+    }
+}
+
+export component MainWindow inherits Window {
+    title: "gf-login-manager";
+    in-out property <[string]> logins;
+    icon:  @image-url("./2.png");
+
+    callback clicked(string);
+    callback clicked_delete(string);
+    callback logout();
+    callback create(string);
+    VerticalLayout {
+        padding: 10px;
+        spacing: 10px;
+        HorizontalLayout {
+            spacing: 10px;
+    
+            input := LineEdit {
+                text: "";
+                placeholder-text: "Name for the Account";
+            }
+            Button {
+                clicked => {
+                    create(input.text);
+                    input.text = "";
+                }
+                text: "Create";
+            }
+            Button {
+                clicked => {
+                    logout();
+                }
+                text: "Logout";
+            }
+        }
+
+        for login in logins: LoginButtons{
+            name: login;
+            clicked => {
+                clicked(login);
+            }
+            clicked_delete => {
+                clicked_delete(login);
+            }
+        }
+
+
+        Rectangle {}
+
+    }
+
+}
